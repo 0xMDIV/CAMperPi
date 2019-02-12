@@ -1,0 +1,16 @@
+## [0.0.1] - 29-01-2019
+### removed
+- doppelte dateien
+
+### added
+- main.py als hauptfile
+
+## [0.0.2] - ?-?-?
+### removed
+- ?
+
+### fixed
+- ?
+
+### added
+- ?
