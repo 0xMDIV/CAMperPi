@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import math
 import time
 import os
+import sys
 
 # functions
 
@@ -16,6 +17,9 @@ def cleanup():
     time.sleep(1)
     os.system("clear")
     exit
+
+def loadCfg():
+        try
 
 def setup():
     try:
@@ -36,13 +40,13 @@ def setup():
         
         # delcare i2c settings
         i2cAdr = 0x48           # I2C-Adresse des Wandlers
-        potiAdr =   0x00        # Poti
-        outAdr =    0x40
+        poti =   0x00        # Poti
+        output =    0x40
         
         print("Setup finished succesfully continue in 10 secs")
         time.sleep(0.5)
         # start main function
-        main(pin, i2cAdr, potiAdr, bus)
+        main(pin, i2cAdr, poti, bus)
 
     except KeyboardInterrupt:
         print("Setup failed, starting cleanup")
@@ -62,5 +66,9 @@ def main(pin, i2cAdr, potiAdr, bus):
         print("\nUnexpcted Interruption from the user")
         time.sleep(2)
         cleanup()
+    except IOError as e:
+        print "I/O error({0}): {1}".format(e.errno, e.strerror)
+    except:
+        print "Unexpected error:", sys.exc_info()[0]
 
 setup()
