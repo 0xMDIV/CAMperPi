@@ -1,5 +1,6 @@
 # run script to install important stuff so anyone can run it
 import os
+import time
 
 failcounter = int(0)
 err0 = 'update failed!'
@@ -24,6 +25,7 @@ try:
     os.system('sudo adduser pi i2c')
     print('tesing if i2c is working')
     os.system('sudo i2cdetect -y 1')
+    time.sleep(2)
     os.system('clear')
 except:
     print(err1)
@@ -41,12 +43,7 @@ except:
 try:
     print('installing wiringPi ...')
     os.system('sudo apt-get install git git-core -y')
-    os.system('git clone git://git.drogon.net/wiringPi')
-    os.system('cd wiringPi')
-    os.system('./build')
-    os.system('git pull origin')
-    os.system('./build')
-    os.system('cd')
+    os.system('sudo pip3 install wiringpi')
     os.system('clear')
     print('wiringPi installation succesfull')
 except:
@@ -55,13 +52,28 @@ except:
 
 try:
     print('setup the Camera...')
-    print('')
-    os.system('')
+    print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
+    os.system('sudo raspi-config')
+    print('Adding Camera Drivers')
+    os.system('sudo modprobe v4l2_common && sudo modprobe bcm2835-v4l2')
+    choice = input('Do you want to add the Camera into the Autostart? y = Yes, n = No ')
+
+    if choice == 'y':
+        os.system('echo "v4l2_common" | sudo tee -a /etc/modules && echo "bcm2835-v4l2" | sudo tee -a /etc/modules')
+    else:
+        print('Camera wasnt Added to Autostart')
+
+    os.system('ls /dev/video*')
+    
+    print('Camera successfully installed')
+    os.system('clear')
 
 except:
     print(err4)
     failcounter += 1
 
+
 if failcounter > 2:
-    print("to many errors...............Exiting")
+    print('to many errors...............Exiting')
+    exit()
     
