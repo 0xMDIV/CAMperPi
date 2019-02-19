@@ -7,9 +7,9 @@ import math
 import time
 import os
 import sys
-import configparser
+#import configparser
 
-config = configparser.ConfigParser()
+#config = configparser.ConfigParser()
 
 # functions
 
@@ -70,7 +70,7 @@ def main(pin, i2cAdr, potiAdr, bus):
             value = bus.read_byte(i2cAdr) / 2.55
             pwm = int(value)
             print ('servo kacke: ', pwm)
-            wiringpi.softServoWrite(pin, pwm)
+            wiringpi.pwmWrite(pin, pwm)
             time.sleep(0.2)
     except KeyboardInterrupt:
         os.system('clear')
