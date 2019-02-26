@@ -1,6 +1,7 @@
 # run script to install important stuff so anyone can run it
 import os
 import time
+import sys
 
 failcounter = int(0)
 err0 = 'update failed!'
@@ -12,10 +13,12 @@ err4 = 'camera setup failed'
 try:
     print('installing needed stuff...')
     print('upgrade Pi...')
+    os.system('sudo dpkg --configure -a')
+    # check for new updates and install when needed
     os.system('sudo apt-get update -y && sudo apt-get upgrade -y')
     os.system('clear')
 except:
-    print(err0)
+    print(err0, sys.exc_info()[0])
     failcounter += 1
 
 try:
@@ -28,7 +31,7 @@ try:
     time.sleep(2)
     os.system('clear')
 except:
-    print(err1)
+    print(err1, sys.exc_info()[0])
     failcounter += 1
 
 try:
@@ -37,17 +40,17 @@ try:
     os.system('sudo apt-get install python-smbus -y')
     os.system('clear')
 except:
-    print(err2)
+    print(err2, sys.exc_info()[0])
     failcounter += 1
 
 try:
     print('installing wiringPi ...')
     os.system('sudo apt-get install git git-core -y')
-    os.system('sudo pip3 install wiringpi')
+    os.system('sudo pip install wiringpi')
     os.system('clear')
     print('wiringPi installation succesfull')
 except:
-    print(err3)
+    print(err3, sys.exc_info()[0])
     failcounter += 1
 
 try:
@@ -69,7 +72,7 @@ try:
     os.system('clear')
 
 except:
-    print(err4)
+    print(err4, sys.exc_info()[0])
     failcounter += 1
 
 
