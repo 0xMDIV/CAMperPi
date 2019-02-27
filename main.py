@@ -25,7 +25,8 @@ def cleanup():
 def setup():
     try:
         print('Starting Setup')
-        pin = 18
+        # set pin
+        pin = int(18)
         print('pin was set to', pin)
         # set wiringpi to Mode GPIO
         wiringpi.wiringPiSetupGpio()
@@ -54,6 +55,7 @@ def setup():
         return pin, i2cAdr, poti, bus
         #servoMotorAuto(pin, i2cAdr, poti, bus)
     except KeyboardInterrupt:
+        print('\nUnexpcted Interruption from the user')
         print('Setup failed, starting cleanup')
         cleanup()
     except IOError as e:
@@ -102,7 +104,6 @@ def main():
     # start the stetup
     setup()
     # setup the vars for the wiring pi and following functions
-    setup()
     pin, i2cAdr, potiAdr, bus = setup()
     # execute automatic servo control over the tunring device
     servoMotorAuto(pin, i2cAdr, potiAdr, bus)

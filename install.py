@@ -10,6 +10,7 @@ err2 = 'python smbus installation failed!'
 err3 = 'wiring pi installation failed!'
 err4 = 'camera setup failed'
 err5 = 'motion installation failed'
+err6 = 'full installation failed'
     
 def updateOS():
     try:
@@ -85,8 +86,20 @@ def installMotion():
         print(err5, sys.exc_info()[0])
 
 
+
 def fullInstallation():
-    print('install everything')
+    try:
+        print('Installation started..\n')
+        updateOS()
+        installi2c()
+        installSmBus()
+        installWiringPi()
+        installMotion()
+        installCamera()
+    except:
+        print(err6, sys.exc_info()[0])
+    
+    
 
 
 def main():
