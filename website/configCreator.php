@@ -1,6 +1,6 @@
 <?php 
-    include('php/header.php');
-    include('php/functions.php');
+    include('header.php');
+    include('functions.php');
     $title = 'Config Creator';
 
     $startInstallation = false;

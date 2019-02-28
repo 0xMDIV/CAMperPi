@@ -4,6 +4,6 @@
     <meta charset="UTF-8">
     <title><?php echo $title;?></title>
     <figure>
-        <img src="./../banner.png" alt="CAMperPi">
+        <img src="./banner.png" alt="CAMperPi">
     </figure>
 </head>

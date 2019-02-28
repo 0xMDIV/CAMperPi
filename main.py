@@ -100,6 +100,7 @@ def servoMotorManual(pin, pwm):
         print('Unexpected error:', sys.exc_info()[0])
 
 
+
 def main():
     # start the stetup
     setup()

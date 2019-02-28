@@ -5,8 +5,8 @@
 # Use xampp to use it local or reach me here: ariz0na.de/contact
 -->
 <?php 
-include('php/functions.php');
-include('php/header.php');
+include('functions.php');
+include('header.php');
 
 $title = "Willkommen";
 ?>

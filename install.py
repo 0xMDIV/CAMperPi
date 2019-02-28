@@ -15,6 +15,7 @@ err6 = 'full installation failed'
 def updateOS():
     try:
         print('upgrading Pi OS...')
+        # repair broken packages
         os.system('sudo dpkg --configure -a')
         # check for new updates and install when needed
         os.system('sudo apt-get update -y && sudo apt-get upgrade -y')
@@ -26,6 +27,7 @@ def updateOS():
 def installi2c():
     try:
         print('installing i2c tools...')
+        # download and install the i2c tools, then check if its working
         os.system('sudo apt-get install i2c-tools -y')
         os.system('sudo adduser pi i2c')
         print('tesing if i2c is working')
@@ -40,6 +42,7 @@ def installSmBus():
     try:
         print('finished installing i2c tools continue...')
         print('install smbus...')
+        # install the smbus package
         os.system('sudo apt-get install python-smbus -y')
         os.system('clear')
     except:
@@ -49,7 +52,7 @@ def installSmBus():
 def installWiringPi():
     try:
         print('installing wiringPi ...')
-        os.system('sudo apt-get install git git-core -y')
+        # install the wiringpi package
         os.system('sudo pip install wiringpi')
         os.system('clear')
         print('wiringPi installation succesfull')
@@ -63,14 +66,18 @@ def installCamera():
         print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
         os.system('sudo raspi-config')
         print('Adding Camera Drivers')
+        # add the camera drivers to the pi and have an option to make the camera auto start
         os.system('sudo modprobe v4l2_common && sudo modprobe bcm2835-v4l2')
-        choice = input('Do you want to add the Camera into the Autostart? y = Yes, n = No ')
+        choice = int(input('Do you want to add the Camera into the Autostart? \n\n1. Yes, \n2. No '))
 
-        if choice == 'y':
+        if choice == int(1):
             os.system('echo "v4l2_common" | sudo tee -a /etc/modules && echo "bcm2835-v4l2" | sudo tee -a /etc/modules')
-        else:
+        elif choice == int(2):
             print('Camera wasnt Added to Autostart')
+        else:
+            print('nothing was choosen, so it wont be added to auto start')
 
+        # ashow all connected video devices
         os.system('ls /dev/video*')
         print('Camera successfully installed')
         os.system('clear')
@@ -81,6 +88,7 @@ def installCamera():
 def installMotion():
     try:
         print('Install Motion...')
+        # install Motion on the pi
         os.system('sudo apt-get install motion')
     except:
         print(err5, sys.exc_info()[0])
@@ -90,12 +98,14 @@ def installMotion():
 def fullInstallation():
     try:
         print('Installation started..\n')
+        # full installation
         updateOS()
         installi2c()
         installSmBus()
         installWiringPi()
         installMotion()
         installCamera()
+        os.system('cd /home/pi/Desktop mkdir photo')     
     except:
         print(err6, sys.exc_info()[0])
     
