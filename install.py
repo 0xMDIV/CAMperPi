@@ -65,9 +65,9 @@ def installWiringPi():
 
 def installCamera():
     try:
-        #print('setup the Camera...')
-        #print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
-        #os.system('sudo raspi-config')
+        print('setup the Camera...')
+        print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
+        os.system('sudo raspi-config')
         print('Adding Camera Drivers')
         # add the camera drivers to auto start
         os.system('sudo modprobe v4l2_common && sudo modprobe bcm2835-v4l2')
@@ -86,9 +86,9 @@ def installMotion():
         print('Install Motion...')
         # install Motion on the pi
         os.system('sudo apt-get install motion')
-        os.system('mkdir /home/pi/cam')
-        os.system('sudo chgrp motion /home/pi/cam')
-        os.system('chmod g+rwx /home/pi/cam')
+        os.system('mkdir /home/pi/Desktop/cam')
+        os.system('sudo chgrp motion /home/pi/Desktop/cam')
+        os.system('chmod g+rwx /home/pi/Desktop/cam')
         # remove standart motion cfgs
         os.system('sudo rm /etc/default/motion')
         os.system('sudo rm /etc/motion/motion.conf')
