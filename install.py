@@ -139,15 +139,15 @@ def main():
         elif menuChoice == int(2):
             updateOS()
         elif menuChoice == int(3):
-            installi2c
+            installi2c()
         elif menuChoice == int(4):
-            installSmBus
+            installSmBus()
         elif menuChoice == int(5):
-            installWiringPi
+            installWiringPi()
         elif menuChoice == int(6):
-            installMotion
+            installMotion()
         elif menuChoice == int(7):
-            installCamera
+            installCamera()
         elif menuChoice == int(8):
             print('Thanks for using CAMperPi, we hope ur happy with our product')
             print('Exit...')
