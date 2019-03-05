@@ -22,6 +22,7 @@ def updateOS():
         os.system('clear')
     except:
         print(err0, sys.exc_info()[0])
+        time.sleep(5)
 
 
 def installi2c():
@@ -36,6 +37,7 @@ def installi2c():
         os.system('clear')
     except:
         print(err1, sys.exc_info()[0])
+        time.sleep(5)
 
 
 def installSmBus():
@@ -47,17 +49,18 @@ def installSmBus():
         os.system('clear')
     except:
         print(err2, sys.exc_info()[0])
+        time.sleep(5)
     
 
 def installWiringPi():
     try:
-        print('installing wiringPi ...')
         # install the wiringpi package
         os.system('sudo pip install wiringpi')
         os.system('clear')
         print('wiringPi installation succesfull')
     except:
-        print(err3, sys.exc_info()[0])  
+        print(err3, sys.exc_info()[0]) 
+        time.sleep(5) 
 
 
 def installCamera():
@@ -66,23 +69,16 @@ def installCamera():
         print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
         os.system('sudo raspi-config')
         print('Adding Camera Drivers')
-        # add the camera drivers to the pi and have an option to make the camera auto start
+        # add the camera drivers to auto start
         os.system('sudo modprobe v4l2_common && sudo modprobe bcm2835-v4l2')
-        choice = int(input('Do you want to add the Camera into the Autostart? \n\n1. Yes, \n2. No '))
-
-        if choice == int(1):
-            os.system('echo "v4l2_common" | sudo tee -a /etc/modules && echo "bcm2835-v4l2" | sudo tee -a /etc/modules')
-        elif choice == int(2):
-            print('Camera wasnt Added to Autostart')
-        else:
-            print('nothing was choosen, so it wont be added to auto start')
-
+        os.system('echo "v4l2_common" | sudo tee -a /etc/modules && echo "bcm2835-v4l2" | sudo tee -a /etc/modules')
         # a show all connected video devices
         os.system('ls /dev/video*')
         print('Camera successfully installed')
         os.system('clear')
     except:
         print(err4, sys.exc_info()[0])
+        time.sleep(5)
 
 
 def installMotion():
@@ -103,6 +99,7 @@ def installMotion():
         os.system('sudo service motion start')
     except:
         print(err5, sys.exc_info()[0])
+        time.sleep(5)
 
 
 def fullInstallation():
@@ -118,6 +115,7 @@ def fullInstallation():
         os.system('cd /home/pi/Desktop mkdir photo')     
     except:
         print(err6, sys.exc_info()[0])
+        time.sleep(5)
     
     
 def main():
@@ -159,5 +157,6 @@ def main():
         print('Installation abgebrochen')
     except:
         print(err6, sys.exc_info()[0])
+        time.sleep(5)
     
 main()
