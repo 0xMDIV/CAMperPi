@@ -77,7 +77,7 @@ def installCamera():
         else:
             print('nothing was choosen, so it wont be added to auto start')
 
-        # ashow all connected video devices
+        # a show all connected video devices
         os.system('ls /dev/video*')
         print('Camera successfully installed')
         os.system('clear')
@@ -105,7 +105,6 @@ def installMotion():
         print(err5, sys.exc_info()[0])
 
 
-
 def fullInstallation():
     try:
         print('Installation started..\n')
@@ -121,42 +120,44 @@ def fullInstallation():
         print(err6, sys.exc_info()[0])
     
     
-
-
 def main():
-    print('----------------CAMperPi Installation Menu----------------')
-    print('\n')
-    print('Welcome to the CAMperPi Main Menu, what would you like to do?')
-    print('1. Full Installation')
-    print('2. Update the RaspberryPi')
-    print('3. Install the I2c Modules')
-    print('4. Install the smbus Modules')
-    print('5. Install the wiringPi modules')
-    print('6. Install Motion')
-    print('7. Activate the Camera')
-    print('8. Exit')
-    menuChoice = int(input('\nChoose an Option by typing the number and press Enter'))
-    print('\n> ')
-    print('Your Choice: ', menuChoice)
+    try:
+        print('----------------CAMperPi Installation Menu----------------')
+        print('\n')
+        print('Welcome to the CAMperPi Main Menu, what would you like to do?')
+        print('1. Full Installation')
+        print('2. Update the RaspberryPi')
+        print('3. Install the I2c Modules')
+        print('4. Install the smbus Modules')
+        print('5. Install the wiringPi modules')
+        print('6. Install Motion')
+        print('7. Activate the Camera')
+        print('8. Exit')
+        menuChoice = int(input('\nChoose an Option by typing the number and press Enter\n> '))
+        print('Your Choice: ', menuChoice)
 
-    if menuChoice == int(1):
-        fullInstallation()
-    elif menuChoice == int(2):
-        updateOS()
-    elif menuChoice == int(3):
-        installi2c
-    elif menuChoice == int(4):
-        installSmBus
-    elif menuChoice == int(5):
-        installWiringPi
-    elif menuChoice == int(6):
-        installMotion
-    elif menuChoice == int(7):
-        installCamera
-    elif menuChoice == int(8):
-        print('Thanks for using CAMperPi, we hope ur happy with our product')
-        print('Exit...')
-        time.sleep(5)
-        exit()
-
+        if menuChoice == int(1):
+            fullInstallation()
+        elif menuChoice == int(2):
+            updateOS()
+        elif menuChoice == int(3):
+            installi2c
+        elif menuChoice == int(4):
+            installSmBus
+        elif menuChoice == int(5):
+            installWiringPi
+        elif menuChoice == int(6):
+            installMotion
+        elif menuChoice == int(7):
+            installCamera
+        elif menuChoice == int(8):
+            print('Thanks for using CAMperPi, we hope ur happy with our product')
+            print('Exit...')
+            time.sleep(5)
+            exit()
+    except KeyboardInterrupt:
+        print('Installation abgebrochen')
+    except:
+        print(err6, sys.exc_info()[0])
+    
 main()
