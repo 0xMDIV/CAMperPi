@@ -65,9 +65,9 @@ def installWiringPi():
 
 def installCamera():
     try:
-        print('setup the Camera...')
-        print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
-        os.system('sudo raspi-config')
+        #print('setup the Camera...')
+        #print('opening raspi-config where the User needs to go to\n5 -> Camera Enable -> Enable -> back -> Finish')
+        #os.system('sudo raspi-config')
         print('Adding Camera Drivers')
         # add the camera drivers to auto start
         os.system('sudo modprobe v4l2_common && sudo modprobe bcm2835-v4l2')
