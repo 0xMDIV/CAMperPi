@@ -7,6 +7,8 @@ import math
 import time
 import os
 import sys
+import datetime
+
 #import configparser
 
 #config = configparser.ConfigParser()
@@ -100,6 +102,17 @@ def servoMotorManual(pin, pwm):
         print('Unexpected error:', sys.exc_info()[0])
 
 
+def autoCameraShot():
+    try:
+        now = datetime.datetime.now()
+        filename = now.strftime("%Y-%m-%d %H:%M")
+        take_photo = 'sudo raspistill - o' + filename + '.jpg'
+        # taking picture every 5 seconds
+        os.system('cd /home/pi/Desktop/cam')
+        os.system(take_photo)
+    except KeyboardInterrupt:
+        os.system('clear')
+        
 
 def main():
     # start the stetup
