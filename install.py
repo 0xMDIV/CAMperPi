@@ -90,6 +90,17 @@ def installMotion():
         print('Install Motion...')
         # install Motion on the pi
         os.system('sudo apt-get install motion')
+        os.system('mkdir /home/pi/cam')
+        os.system('sudo chgrp motion /home/pi/cam')
+        os.system('chmod g+rwx /home/pi/cam')
+        # remove standart motion cfgs
+        os.system('sudo rm /etc/default/motion')
+        os.system('sudo rm /etc/motion/motion.conf')
+        # now add our config files
+        os.system('sudo mv motion /etc/default/')
+        os.system('sudo mv motion.conf /etc/motion/')
+        print('Starting Motion')
+        os.system('sudo service motion start')
     except:
         print(err5, sys.exc_info()[0])
 
