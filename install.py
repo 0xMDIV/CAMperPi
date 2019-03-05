@@ -75,7 +75,7 @@ def installCamera():
         # a show all connected video devices
         os.system('ls /dev/video*')
         print('Camera successfully installed')
-        os.system('clear')
+        # os.system('clear')
     except:
         print(err4, sys.exc_info()[0])
         time.sleep(5)
