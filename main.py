@@ -123,3 +123,5 @@ def main():
     servoMotorAuto(pin, i2cAdr, potiAdr, bus)
     # execute manual servo control or to turn it for the pictures by and pwm value between 1 and 255
     # servoMotorManual(pin, 30)
+
+main()
