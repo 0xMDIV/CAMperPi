@@ -1,20 +1,16 @@
 # coding: utf8
-# imports fot he needed libs
+# importieren der benütigten Bibliotheken
 import wiringpi
 import smbus
 import RPi.GPIO as GPIO
-import math
 import time
 import os
 import sys
 import datetime
 
-#import configparser
-
-#config = configparser.ConfigParser()
-
 # functions
 
+# Zurücksetzen der GPIO Pins
 def cleanup():
     GPIO.cleanup()
     os.system('clear')
@@ -23,7 +19,7 @@ def cleanup():
     os.system('clear')
     exit
 
-
+# setup von wiringPi 
 def setup():
     try:
         print('Starting Setup')
@@ -66,13 +62,14 @@ def setup():
         print('Unexpected error:', sys.exc_info()[0])
 
 
+# Zuständig für das Drehen der Servos
 def servoMotorAuto(pin, i2cAdr, potiAdr, bus):
     try:
         while True:
             bus.write_byte(i2cAdr, potiAdr) 
             value = bus.read_byte(i2cAdr) / 2.55
             pwm = int(value)
-            print ('servo kacke: ', pwm)
+            print ('servo drehwinkel: ', pwm)
             wiringpi.pwmWrite(pin, pwm)
             time.sleep(0.2)
     except KeyboardInterrupt:
@@ -85,7 +82,7 @@ def servoMotorAuto(pin, i2cAdr, potiAdr, bus):
     except:
         print('Unexpected error:', sys.exc_info()[0])
 
-
+# Erweiterte Funktion um den Servo über das Web steuern zu können
 def servoMotorManual(pin, pwm):
     try:     
         print ('servo drehwinkel: ', pwm,' °')
@@ -100,20 +97,8 @@ def servoMotorManual(pin, pwm):
         print('I/O error({0}): {1}'.format(e.errno, e.strerror))
     except:
         print('Unexpected error:', sys.exc_info()[0])
-
-
-def autoCameraShot():
-    try:
-        now = datetime.datetime.now()
-        filename = now.strftime("%Y-%m-%d %H:%M")
-        take_photo = 'sudo raspistill - o' + filename + '.jpg'
-        # taking picture every 5 seconds
-        os.system('cd /home/pi/Desktop/cam')
-        os.system(take_photo)
-    except KeyboardInterrupt:
-        os.system('clear')
         
-
+# main zum aufrufen der wichtigsten Funktionen
 def main():
     # start the stetup
     setup()
