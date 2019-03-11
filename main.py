@@ -19,7 +19,7 @@ def cleanup():
     os.system('clear')
     exit
 
-# setup von wiringPi 
+# setup  
 def setup():
     try:
         print('Starting Setup')
@@ -39,27 +39,24 @@ def setup():
         bus = smbus.SMBus(1)
         print('Bus pin set successfully')
         
-        # if we would use a cfg file it would be delcared here which var would have which value
-        # read cfg 
-        # push cfg settings in to the vars
-        
         # delcare i2c settings
         i2cAdr = 0x48           # I2C-Adresse des Wandlers
         poti =   0x00        # Poti
         
         print('Setup finished succesfully continue...')
         time.sleep(0.5)
-        # return the cfg vars
+        # return the cfg variables
         return pin, i2cAdr, poti, bus
-        #servoMotorAuto(pin, i2cAdr, poti, bus)
     except KeyboardInterrupt:
         print('\nUnexpcted Interruption from the user')
         print('Setup failed, starting cleanup')
         cleanup()
     except IOError as e:
         print('I/O error({0}): {1}'.format(e.errno, e.strerror))
+        cleanup()
     except:
         print('Unexpected error:', sys.exc_info()[0])
+        cleanup()
 
 
 # Zuständig für das Drehen der Servos
@@ -79,8 +76,10 @@ def servoMotorAuto(pin, i2cAdr, potiAdr, bus):
         cleanup()
     except IOError as e:
         print('I/O error({0}): {1}'.format(e.errno, e.strerror))
+        cleanup()
     except:
         print('Unexpected error:', sys.exc_info()[0])
+        cleanup()
 
 # Erweiterte Funktion um den Servo über das Web steuern zu können
 def servoMotorManual(pin, pwm):
@@ -95,18 +94,20 @@ def servoMotorManual(pin, pwm):
         cleanup()
     except IOError as e:
         print('I/O error({0}): {1}'.format(e.errno, e.strerror))
+        cleanup()
     except:
         print('Unexpected error:', sys.exc_info()[0])
+        cleanup()
         
 # main zum aufrufen der wichtigsten Funktionen
 def main():
-    # start the stetup
+    # starte das Setup
     setup()
-    # setup the vars for the wiring pi and following functions
+    # weise den Variablen die Werte aus der Setup Funktion zu
     pin, i2cAdr, potiAdr, bus = setup()
-    # execute automatic servo control over the tunring device
+    # Drehwinkels des ServoMotors einstellen mithilfe des Wertes des Potentiometers
     servoMotorAuto(pin, i2cAdr, potiAdr, bus)
-    # execute manual servo control or to turn it for the pictures by and pwm value between 1 and 255
-    # servoMotorManual(pin, 30)
+    # Löschen der Bilder die älter als 2 Tage alt sind
+    os.system("find /path/to/ -type f -mtime +7 -name '*.gz' -execdir rm -- '{}' \;")
 
 main()
