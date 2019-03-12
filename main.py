@@ -69,6 +69,8 @@ def servoMotorAuto(pin, i2cAdr, potiAdr, bus):
             print ('servo drehwinkel: ', pwm)
             wiringpi.pwmWrite(pin, pwm)
             time.sleep(0.2)
+            # Löschen der Bilder die älter als 2 Tage alt sind
+            os.system("find /path/to/ -type f -mtime +7 -name '*.gz' -execdir rm -- '{}' \;")
     except KeyboardInterrupt:
         os.system('clear')
         print('\nUnexpcted Interruption from the user')
@@ -107,7 +109,5 @@ def main():
     pin, i2cAdr, potiAdr, bus = setup()
     # Drehwinkels des ServoMotors einstellen mithilfe des Wertes des Potentiometers
     servoMotorAuto(pin, i2cAdr, potiAdr, bus)
-    # Löschen der Bilder die älter als 2 Tage alt sind
-    os.system("find /path/to/ -type f -mtime +7 -name '*.gz' -execdir rm -- '{}' \;")
 
 main()
